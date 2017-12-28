@@ -62,27 +62,21 @@ public:
         if (head == NULL || head->next == NULL) {
             return true;
         }
-        auto slow = head;
-        auto fast = head;
-        // Move to the middle
-        while (fast && fast->next) {
-            fast = fast->next->next;
-            slow = slow->next;
-        }
-        // Push the second half to the stack
+        // Push the elements into a stack
         stack<ListNode*> s;
-        while (slow) {
-            s.push(slow);
-            slow = slow->next;
+        auto curr = head;
+        while (curr) {
+            s.push(curr);
+            curr = curr->next;
         }
-        // Compare first half and stack
-        fast = head;
+        // Compare list and stack
+        curr = head;
         while (!s.empty()) {
-            if (fast->val != s.top()->val) {
+            if (curr->val != s.top()->val) {
                 return false;
             }
             s.pop();
-            fast = fast->next;
+            curr = curr->next;
         }
         return true;
     }
